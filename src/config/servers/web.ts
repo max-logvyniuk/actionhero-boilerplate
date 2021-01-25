@@ -1,4 +1,7 @@
 import * as os from "os";
+import { PWD } from "../../server";
+
+import * as StreamTools from "../../modules/stream";
 
 export const DEFAULT = {
   servers: {
@@ -71,10 +74,13 @@ export const DEFAULT = {
         // Options to be applied to incoming file uploads.
         //  More options and details at https://github.com/felixge/node-formidable
         formOptions: {
-          uploadDir: os.tmpdir(),
+          // uploadDir: os.tmpdir(),
+          uploadDir: `${PWD}/files`,
           keepExtensions: false,
           maxFieldsSize: 1024 * 1024 * 20,
-          maxFileSize: 1024 * 1024 * 200,
+          maxFileSize: 1024 * 1024 * 1024 * 200,
+          // add custom fileWriteStreamHandler
+          // fileWriteStreamHandler: StreamTools.fileWriteStreamHandler
         },
         // Should we pad JSON responses with whitespace to make them more human-readable?
         // set to null to disable

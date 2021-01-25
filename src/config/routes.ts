@@ -8,6 +8,7 @@ export const DEFAULT = {
         { path: "/comments/:userName/:title", action: "commentsView" },
         { path: "/post/:userName/:title", action: "postView" },
         { path: "/posts/:userName/", action: "postsList" },
+        { path: "/stream", action: "getDataStream" },
       ],
 
       post: [
@@ -15,6 +16,7 @@ export const DEFAULT = {
         { path: "/user", action: "userAdd" },
         { path: "/comment/:userName/:title", action: "commentAdd" },
         { path: "/post/:userName/", action: "postAdd" },
+        { path: "/stream", action: "setDataWithStream" },
       ],
 
       put: [{ path: "/post/:userName/:title", action: "postEdit" }],

@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { URL } from "url";
 
 /**
@@ -13,6 +14,8 @@ export const DEFAULT = {
     let port = process.env.REDIS_PORT || 6379;
     let db = process.env.REDIS_DB || process.env.JEST_WORKER_ID || "0";
     let password = process.env.REDIS_PASSWORD || null;
+
+    // console.info('REDISSSS!!!!', process.env.REDIS_URL)
 
     if (process.env.REDIS_URL) {
       const parsed = new URL(process.env.REDIS_URL);
@@ -73,10 +76,10 @@ export const DEFAULT = {
 //   redis: (config) => {
 //     const MockIORedis = require("ioredis-mock");
 //     const baseRedis = new MockIORedis();
-
+//
 //     return {
 //       scanCount: 1000,
-
+//
 //       _toExpand: false,
 //       client: {
 //         konstructor: () => baseRedis,

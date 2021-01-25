@@ -1,7 +1,6 @@
 {
-  "author": "evan <evan@actionherojs.com>",
   "name": "actionhero_tutorial",
-  "description": "actionhero tutorial project",
+  "description": "actionhero boilerplate",
   "version": "0.1.0",
   "engines": {
     "node": ">=12.0.0"
@@ -9,7 +8,10 @@
   "dependencies": {
     "actionhero": "^25.0.2",
     "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
     "ioredis": "^4.19.4",
+    "lodash": "^4.17.20",
+    "multer": "^1.4.2",
     "winston": "^3.3.3",
     "ws": "^7.4.2"
   },
@@ -19,6 +21,7 @@
     "@types/node": "^14.14.19",
     "axios": "^0.21.1",
     "jest": "^26.6.3",
+    "lodash": "^4.17.20",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.1.1",

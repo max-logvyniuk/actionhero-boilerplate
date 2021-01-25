@@ -3,6 +3,11 @@ import { Process } from "actionhero";
 
 // load any custom code, configure the env, as needed
 
+const arrayFromAppDir = `${__dirname}`.split("\\");
+export const PWD: string = arrayFromAppDir
+  .slice(0, arrayFromAppDir.length - 1)
+  .join("\\");
+
 async function main() {
   // create a new actionhero process
   const app = new Process();

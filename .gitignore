@@ -28,3 +28,8 @@ cache.dump
 /nbproject/*
 /.idea/*
 .vscode
+
+#files
+/files
+
+.env
