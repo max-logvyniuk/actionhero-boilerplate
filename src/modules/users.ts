@@ -1,6 +1,8 @@
 import * as bcrypt from "bcrypt";
 import { api } from "actionhero";
 
+import { User } from "../models/User";
+
 const saltRounds = 10;
 const usersHash = "users";
 
@@ -60,4 +62,31 @@ async function comparePassword(hashedPassword: string, userPassword: String) {
 
 function redis() {
   return api.redis.clients.client;
+}
+
+async function getUser(where: any, options?: {} ) {
+  const defaultOptions = { raw: true, attributes: { exclude: ['password'] } };
+  options = { ...defaultOptions, ...options};
+  const user = await User.findOne({
+    where,
+    ...options
+  });
+
+  // console.info('getUser module!!!!!', where, user);
+
+  return user;
+}
+
+async function deleteUser(where: any, options?: {} ) {
+  const defaultOptions = { force: false };
+  options = { ...defaultOptions, ...options};
+  return User.destroy({
+    where,
+    ...options
+  })
+}
+
+export {
+  getUser,
+  deleteUser
 }

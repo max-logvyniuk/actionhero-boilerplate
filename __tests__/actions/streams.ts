@@ -20,7 +20,7 @@ describe("actionHero Stream Test", () => {
   test("create read stream from file that stored in server", async () => {
       jest.mock('actionhero');
 
-      const readStream: ReadStream = await fs.createReadStream(
+      const readStream = await fs.createReadStream(
           `${PWD}/files/new.txt`
       );
 
@@ -28,8 +28,12 @@ describe("actionHero Stream Test", () => {
         fileName: "new.txt",
       });
 
+      const dataStream: ReadableStream = response.dataStream;
 
-      expect(JSON.stringify(response.dataStream)).toEqual(JSON.stringify(readStream));
+      console.info('Stream test!!!', response.dataStream, readStream);
+
+
+      expect(response.dataStream).toMatchObject(readStream);
 
   });
 });

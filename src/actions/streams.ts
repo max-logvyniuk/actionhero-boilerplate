@@ -27,7 +27,7 @@ export class GetDataStream extends AuthenticatedAction {
     // const dataStream = await StreamFiles.readFile(params.fileName);
 
     return {
-      dataStream
+       dataStream
     };
     // return dataStream;
   }
