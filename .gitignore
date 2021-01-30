@@ -30,6 +30,6 @@ cache.dump
 .vscode
 
 #files
-#/files/*
+/files/*
 
 .env
