@@ -17,7 +17,7 @@ describe("actionhero Tests", () => {
     expect(id).toBeTruthy();
   });
 
-  test("can retrieve server uptime via the status action", async () => {
+  test("can retrieve backend uptime via the status action", async () => {
     const { uptime } = await specHelper.runAction("status");
     expect(uptime).toBeGreaterThan(0);
   });

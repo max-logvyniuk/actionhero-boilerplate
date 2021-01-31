@@ -60,7 +60,7 @@ export const DEFAULT = {
         return data.connection.localize("actionhero.errors.unknownAction");
       },
 
-      // action not useable by this client/server type
+      // action not useable by this client/backend type
       unsupportedServerType: (data) => {
         return data.connection.localize([
           "actionhero.errors.unsupportedServerType",
@@ -68,7 +68,7 @@ export const DEFAULT = {
         ]);
       },
 
-      // action failed because server is mid-shutdown
+      // action failed because backend is mid-shutdown
       serverShuttingDown: (data) => {
         return data.connection.localize("actionhero.errors.serverShuttingDown");
       },

@@ -34,7 +34,7 @@ export const DEFAULT = {
       filteredResponse: [],
       // values that signify missing params
       missingParamChecks: [null, "", undefined],
-      // The default filetype to server when a user requests a directory
+      // The default filetype to backend when a user requests a directory
       directoryFileType: "index.html",
       // What log-level should we use for file requests?
       fileRequestLogLevel: "info",
@@ -64,7 +64,7 @@ export const DEFAULT = {
         dist: path.join(process.cwd(), "dist"),
       },
 
-      // hash containing chat rooms you wish to be created at server boot
+      // hash containing chat rooms you wish to be created at backend boot
       startingChatRooms: {
         // format is {roomName: {authKey, authValue}}
         // 'secureRoom': {authorized: true},

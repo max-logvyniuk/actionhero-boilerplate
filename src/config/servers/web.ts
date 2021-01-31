@@ -36,7 +36,7 @@ export const DEFAULT = {
         urlPathForActions: "api",
         // Route that static files will be served from;
         //  path (relative to your project root) to serve static content from
-        //  set to `null` to disable the file server entirely
+        //  set to `null` to disable the file backend entirely
         urlPathForFiles: "public",
         // When visiting the root URL, should visitors see 'api' or 'file'?
         //  Visitors can always visit /api and /public as normal
@@ -58,7 +58,7 @@ export const DEFAULT = {
         enableEtag: true,
         // should we save the un-parsed HTTP POST/PUT payload to connection.rawConnection.params.rawBody?
         saveRawBody: false,
-        // How many times should we try to boot the server?
+        // How many times should we try to boot the backend?
         // This might happen if the port is in use by another process or the socket file is claimed
         bootAttempts: 1,
         // Settings for determining the id of an http(s) request (browser-fingerprint)
@@ -93,7 +93,7 @@ export const DEFAULT = {
         // When true, returnErrorCodes will modify the response header for http(s) clients if connection.error is not null.
         // You can also set connection.rawConnection.responseHttpCode to specify a code per request.
         returnErrorCodes: true,
-        // should this node server attempt to gzip responses if the client can accept them?
+        // should this node backend attempt to gzip responses if the client can accept them?
         // this will slow down the performance of actionhero, and if you need this functionality, it is recommended that you do this upstream with nginx or your load balancer
         compress: false,
         // options to pass to the query parser

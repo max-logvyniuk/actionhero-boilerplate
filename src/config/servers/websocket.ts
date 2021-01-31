@@ -1,4 +1,4 @@
-// Note that to use the websocket server, you also need the web server enabled
+// Note that to use the websocket backend, you also need the web backend enabled
 
 export const DEFAULT = {
   servers: {
@@ -14,7 +14,7 @@ export const DEFAULT = {
         // do not include the file extension
         // set to `undefined` to not render the client-side JS on boot
         clientJsName: "ActionheroWebsocketClient",
-        // should the server signal clients to not reconnect when the server is shutdown/reboot
+        // should the backend signal clients to not reconnect when the backend is shutdown/reboot
         destroyClientsOnShutdown: false,
 
         // websocket Server Options:
@@ -34,7 +34,7 @@ export const DEFAULT = {
 
         // websocket Client Options:
         client: {
-          apiPath: "/api", // the api base endpoint on your actionhero server
+          apiPath: "/api", // the api base endpoint on your actionhero backend
           // the cookie name we should use for shared authentication between WS and web connections
           cookieKey: config.servers.web.fingerprintOptions.cookieKey,
           // reconnect:        {},

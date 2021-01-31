@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "allowJs": true,
     "module": "commonjs",
-    "target": "es2018",
+    "target": "ES6",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
