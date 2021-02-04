@@ -1,14 +1,10 @@
-import { api } from "actionhero";
+import { api } from 'actionhero';
 
-const separator = ";";
-const postPrefix = "posts";
-const commentPrefix = "comments:";
+const separator = ';';
+const postPrefix = 'posts';
+const commentPrefix = 'comments:';
 
-export async function postAdd(
-  userName: string,
-  title: string,
-  content: string
-) {
+export async function postAdd(userName: string, title: string, content: string) {
   const key = buildTitleKey(userName, title);
   const data = {
     content,
@@ -26,7 +22,7 @@ export async function postView(userName: string, title?: string) {
 }
 
 export async function postsList(userName: string) {
-  const search = [postPrefix, userName, "*"].join(separator);
+  const search = [postPrefix, userName, '*'].join(separator);
   const keys = await redis().keys(search);
   const titles = keys.map((key) => {
     const parts = key.split(separator);
@@ -37,11 +33,7 @@ export async function postsList(userName: string) {
   return titles;
 }
 
-export async function postEdit(
-  userName: string,
-  title: string,
-  content: string
-) {
+export async function postEdit(userName: string, title: string, content: string) {
   const key = buildTitleKey(userName, title);
   const data = await postView(key);
   const newData = {
@@ -65,7 +57,7 @@ export async function commentAdd(
   userName: string,
   title: string,
   commenterName: string,
-  comment: string
+  comment: string,
 ) {
   const key = buildCommentKey(userName, title);
   const commentId = buildCommentId(commenterName);
@@ -88,16 +80,12 @@ export async function commentsView(userName: string, title: string) {
   return comments;
 }
 
-export async function commentDelete(
-  userName: string,
-  title: string,
-  commentId: string
-) {
+export async function commentDelete(userName: string, title: string, commentId: string) {
   const key = buildCommentKey(userName, title);
   await redis().hdel(key, commentId);
 }
 
-function buildTitleKey(userName: string, title = "") {
+function buildTitleKey(userName: string, title = '') {
   // "posts:evan:my first post"
   return postPrefix + separator + userName + separator + title;
 }

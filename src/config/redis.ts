@@ -1,5 +1,5 @@
-require("dotenv").config();
-import { URL } from "url";
+require('dotenv').config();
+import { URL } from 'url';
 
 /**
  * This is the standard redis config for Actionhero.
@@ -8,11 +8,11 @@ import { URL } from "url";
 
 export const DEFAULT = {
   redis: (config) => {
-    const konstructor = require("ioredis");
+    const konstructor = require('ioredis');
 
-    let host = process.env.REDIS_HOST || "127.0.0.1";
+    let host = process.env.REDIS_HOST || '127.0.0.1';
     let port = process.env.REDIS_PORT || 6379;
-    let db = process.env.REDIS_DB || process.env.JEST_WORKER_ID || "0";
+    let db = process.env.REDIS_DB || process.env.JEST_WORKER_ID || '0';
     let password = process.env.REDIS_PASSWORD || null;
 
     // console.info('REDISSSS!!!!', process.env.REDIS_URL)
@@ -34,9 +34,7 @@ export const DEFAULT = {
       // you can learn more about retryStrategy @ https://github.com/luin/ioredis#auto-reconnect
       retryStrategy: (times) => {
         if (times === 1) {
-          console.error(
-            "Unable to connect to Redis - please check your Redis config!"
-          );
+          console.error('Unable to connect to Redis - please check your Redis config!');
           return 5000;
         }
         return Math.min(times * 50, maxBackoff);
@@ -74,7 +72,7 @@ export const DEFAULT = {
 
 // export const DEFAULT = {
 //   redis: (config) => {
-//     const MockIORedis = require("ioredis-mock");
+//     const MockIORedis = require('ioredis-mock');
 //     const baseRedis = new MockIORedis();
 //
 //     return {

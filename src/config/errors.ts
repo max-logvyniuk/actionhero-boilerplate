@@ -25,7 +25,7 @@ export const DEFAULT = {
           },
           specHelper: (error) => {
             if (error.message) {
-              return "Error: " + String(error.message);
+              return 'Error: ' + String(error.message);
             } else {
               return error;
             }
@@ -44,41 +44,39 @@ export const DEFAULT = {
         if (validationErrors.length >= 0) {
           return validationErrors[0];
         }
-        return data.connection.localize("actionhero.errors.invalidParams");
+        return data.connection.localize('actionhero.errors.invalidParams');
       },
 
       // When a required param for an action is not provided
       missingParams: (data, missingParams) => {
         return data.connection.localize([
-          "actionhero.errors.missingParams",
+          'actionhero.errors.missingParams',
           { param: missingParams[0] },
         ]);
       },
 
       // user requested an unknown action
       unknownAction: (data) => {
-        return data.connection.localize("actionhero.errors.unknownAction");
+        return data.connection.localize('actionhero.errors.unknownAction');
       },
 
       // action not useable by this client/backend type
       unsupportedServerType: (data) => {
         return data.connection.localize([
-          "actionhero.errors.unsupportedServerType",
+          'actionhero.errors.unsupportedServerType',
           { type: data.connection.type },
         ]);
       },
 
       // action failed because backend is mid-shutdown
       serverShuttingDown: (data) => {
-        return data.connection.localize("actionhero.errors.serverShuttingDown");
+        return data.connection.localize('actionhero.errors.serverShuttingDown');
       },
 
       // action failed because this client already has too many pending actions
       // limit defined in api.config.general.simultaneousActions
       tooManyPendingActions: (data) => {
-        return data.connection.localize(
-          "actionhero.errors.tooManyPendingActions"
-        );
+        return data.connection.localize('actionhero.errors.tooManyPendingActions');
       },
 
       // Decorate your response based on Error here.
@@ -95,20 +93,17 @@ export const DEFAULT = {
       // The body message to accompany 404 (file not found) errors regarding flat files
       // You may want to load in the content of 404.html or similar
       fileNotFound: (connection) => {
-        return connection.localize(["actionhero.errors.fileNotFound"]);
+        return connection.localize(['actionhero.errors.fileNotFound']);
       },
 
       // user didn't request a file
       fileNotProvided: (connection) => {
-        return connection.localize("actionhero.errors.fileNotProvided");
+        return connection.localize('actionhero.errors.fileNotProvided');
       },
 
       // something went wrong trying to read the file
       fileReadError: (connection, error) => {
-        return connection.localize([
-          "actionhero.errors.fileReadError",
-          { error: String(error) },
-        ]);
+        return connection.localize(['actionhero.errors.fileReadError', { error: String(error) }]);
       },
 
       // ///////////////
@@ -116,53 +111,39 @@ export const DEFAULT = {
       // ///////////////
 
       verbNotFound: (connection, verb) => {
-        return connection.localize([
-          "actionhero.errors.verbNotFound",
-          { verb: verb },
-        ]);
+        return connection.localize(['actionhero.errors.verbNotFound', { verb: verb }]);
       },
 
       verbNotAllowed: (connection, verb) => {
-        return connection.localize([
-          "actionhero.errors.verbNotAllowed",
-          { verb: verb },
-        ]);
+        return connection.localize(['actionhero.errors.verbNotAllowed', { verb: verb }]);
       },
 
       connectionRoomAndMessage: (connection) => {
-        return connection.localize(
-          "actionhero.errors.connectionRoomAndMessage"
-        );
+        return connection.localize('actionhero.errors.connectionRoomAndMessage');
       },
 
       connectionNotInRoom: (connection, room) => {
-        return connection.localize([
-          "actionhero.errors.connectionNotInRoom",
-          { room: room },
-        ]);
+        return connection.localize(['actionhero.errors.connectionNotInRoom', { room: room }]);
       },
 
       connectionAlreadyInRoom: (connection, room) => {
-        return connection.localize([
-          "actionhero.errors.connectionAlreadyInRoom",
-          { room: room },
-        ]);
+        return connection.localize(['actionhero.errors.connectionAlreadyInRoom', { room: room }]);
       },
 
       connectionRoomHasBeenDeleted: (room) => {
-        return "this room has been deleted";
+        return 'this room has been deleted';
       },
 
       connectionRoomNotExist: (room) => {
-        return "room does not exist";
+        return 'room does not exist';
       },
 
       connectionRoomExists: (room) => {
-        return "room exists";
+        return 'room exists';
       },
 
       connectionRoomRequired: (room) => {
-        return "a room is required";
+        return 'a room is required';
       },
     };
   },

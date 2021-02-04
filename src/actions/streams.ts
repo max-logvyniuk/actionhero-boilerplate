@@ -1,14 +1,14 @@
-import * as fs from "fs";
+import * as fs from 'fs';
 
-import { AuthenticatedAction } from "../classes/authenticatedAction";
-import { PWD } from "../server";
-import * as StreamFiles from "./../modules/stream";
+import { AuthenticatedAction } from '../classes/authenticatedAction';
+import { PWD } from '../server';
+import * as StreamFiles from './../modules/stream';
 
 export class GetDataStream extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "getDataStream";
-    this.description = "Get data stream";
+    this.name = 'getDataStream';
+    this.description = 'Get data stream';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -21,13 +21,11 @@ export class GetDataStream extends AuthenticatedAction {
     const { connection } = actionProcessor;
     const { params } = connection;
 
-    const dataStream = await fs.createReadStream(
-      `${PWD}/files/${params.fileName}`
-    );
+    const dataStream = await fs.createReadStream(`${PWD}/files/${params.fileName}`);
     // const dataStream = await StreamFiles.readFile(params.fileName);
 
     return {
-       dataStream
+      dataStream,
     };
     // return dataStream;
   }
@@ -36,8 +34,8 @@ export class GetDataStream extends AuthenticatedAction {
 export class SetDataWithStream extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "setDataWithStream";
-    this.description = "Set data with stream";
+    this.name = 'setDataWithStream';
+    this.description = 'Set data with stream';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -55,20 +53,14 @@ export class SetDataWithStream extends AuthenticatedAction {
     const { connection } = actionProcessor;
     const { params } = connection;
 
-    console.info("Stream query!!!!!!!!!!", actionProcessor);
+    console.info('Stream query!!!!!!!!!!', actionProcessor);
 
-    await fs.rename(
-      params.file.path,
-      `${PWD}/files/${params.file.name}`,
-      (err) => {
-        if (err) throw err;
-        console.log("renamed complete!!!!!!!!!!!!!");
-      }
-    );
+    await fs.rename(params.file.path, `${PWD}/files/${params.file.name}`, (err) => {
+      if (err) throw err;
+      console.log('renamed complete!!!!!!!!!!!!!');
+    });
 
-    const newFile = await StreamFiles.readFile(
-      `${PWD}/files/${params.file.name}`
-    );
+    const newFile = await StreamFiles.readFile(`${PWD}/files/${params.file.name}`);
 
     return newFile;
   }

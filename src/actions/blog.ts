@@ -1,12 +1,12 @@
-import { api } from "actionhero";
-import { AuthenticatedAction } from "./../classes/authenticatedAction";
-import * as Blog from "./../modules/blog";
+import { api } from 'actionhero';
+import { AuthenticatedAction } from './../classes/authenticatedAction';
+import * as Blog from './../modules/blog';
 
 export class PostAdd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "postAdd";
-    this.description = "I add a post";
+    this.name = 'postAdd';
+    this.description = 'I add a post';
     this.outputExample = {};
     this.authenticated = true;
     this.inputs = {
@@ -27,8 +27,8 @@ export class PostAdd extends AuthenticatedAction {
 export class PostView extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "postView";
-    this.description = "I view a post";
+    this.name = 'postView';
+    this.description = 'I view a post';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -46,7 +46,7 @@ export class PostView extends AuthenticatedAction {
 export class PostsList extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "postsList";
+    this.name = 'postsList';
     this.description = "I list all of a user's posts";
     this.outputExample = {};
     this.authenticated = false;
@@ -64,8 +64,8 @@ export class PostsList extends AuthenticatedAction {
 export class PostEdit extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "postEdit";
-    this.description = "I edit a post";
+    this.name = 'postEdit';
+    this.description = 'I edit a post';
     this.outputExample = {};
     this.authenticated = true;
     this.inputs = {
@@ -85,8 +85,8 @@ export class PostEdit extends AuthenticatedAction {
 export class PostDelete extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "postDelete";
-    this.description = "I delete a post";
+    this.name = 'postDelete';
+    this.description = 'I delete a post';
     this.outputExample = {};
     this.authenticated = true;
     this.inputs = {
@@ -104,8 +104,8 @@ export class PostDelete extends AuthenticatedAction {
 export class CommentAdd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "commentAdd";
-    this.description = "I add a comment";
+    this.name = 'commentAdd';
+    this.description = 'I add a comment';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -117,12 +117,7 @@ export class CommentAdd extends AuthenticatedAction {
   }
 
   async run({ params }) {
-    await Blog.commentAdd(
-      params.userName,
-      params.title,
-      params.commenterName,
-      params.comment
-    );
+    await Blog.commentAdd(params.userName, params.title, params.commenterName, params.comment);
     return { success: true };
   }
 }
@@ -130,8 +125,8 @@ export class CommentAdd extends AuthenticatedAction {
 export class CommentsView extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "commentsView";
-    this.description = "I show all comments for a post";
+    this.name = 'commentsView';
+    this.description = 'I show all comments for a post';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -149,8 +144,8 @@ export class CommentsView extends AuthenticatedAction {
 export class CommentDelete extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "commentDelete";
-    this.description = "I delete a comment";
+    this.name = 'commentDelete';
+    this.description = 'I delete a comment';
     this.outputExample = {};
     this.authenticated = true;
     this.inputs = {

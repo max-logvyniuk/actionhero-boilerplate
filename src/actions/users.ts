@@ -1,17 +1,17 @@
 import * as bcrypt from 'bcrypt';
 
-import { AuthenticatedAction } from "./../classes/authenticatedAction";
-import * as Users from "./../modules/users";
+import { AuthenticatedAction } from './../classes/authenticatedAction';
+import * as Users from './../modules/users';
 import { User } from '../models/User';
-import { getUser, deleteUser } from "./../modules/users";
+import { createUser, getUser, getUsersList, deleteUser } from './../modules/users';
 
 const saltRounds = 10;
 
 exports.userAdd = class UserAdd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "userAdd";
-    this.description = "I add a user";
+    this.name = 'userAdd';
+    this.description = 'I add a user';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -29,8 +29,8 @@ exports.userAdd = class UserAdd extends AuthenticatedAction {
 exports.userDelete = class UserDelete extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "userDelete";
-    this.description = "I delete a user";
+    this.name = 'userDelete';
+    this.description = 'I delete a user';
     this.outputExample = {};
     this.authenticated = true;
     this.inputs = {
@@ -47,8 +47,8 @@ exports.userDelete = class UserDelete extends AuthenticatedAction {
 exports.usersList = class UsersList extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "usersList";
-    this.description = "I list all the users";
+    this.name = 'usersList';
+    this.description = 'I list all the users';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {};
@@ -67,8 +67,8 @@ exports.usersList = class UsersList extends AuthenticatedAction {
 exports.authenticate = class Authenticate extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "authenticate";
-    this.description = "I authenticate a user";
+    this.name = 'authenticate';
+    this.description = 'I authenticate a user';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
@@ -78,13 +78,10 @@ exports.authenticate = class Authenticate extends AuthenticatedAction {
   }
 
   async run({ params }) {
-    const authenticated = await Users.authenticate(
-      params.userName,
-      params.password
-    );
+    const authenticated = await Users.authenticate(params.userName, params.password);
 
     if (!authenticated) {
-      throw new Error("unable to log in");
+      throw new Error('unable to log in');
     }
 
     return { authenticated };
@@ -94,8 +91,8 @@ exports.authenticate = class Authenticate extends AuthenticatedAction {
 exports.usersListMd = class UsersListMd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "usersListMd";
-    this.description = "I list all the users";
+    this.name = 'usersListMd';
+    this.description = 'I list all the users';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {};
@@ -103,12 +100,16 @@ exports.usersListMd = class UsersListMd extends AuthenticatedAction {
 
   async run() {
     try {
-      const users = await User.findAll();
-      console.info('Md users!!!', users);
+      const users = await getUsersList();
+      // console.info('Md users!!!', users);
+      if (users?.length && users?.length > 0) {
+        return {
+          users,
+        };
+      }
+
       return {
-        users: users.map((user) => {
-          return user;
-        }),
+        users: null,
       };
     } catch (error) {
       return { error };
@@ -119,8 +120,8 @@ exports.usersListMd = class UsersListMd extends AuthenticatedAction {
 exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "createUserMd";
-    this.description = "Create new user in MariaDb";
+    this.name = 'createUserMd';
+    this.description = 'Create new user in MariaDb';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {};
@@ -134,34 +135,24 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
       // const passwordHash = await bcrypt.hash(params.password, saltRounds)
 
       const checkIfUserExist = await getUser({
-        email: params.email
+        email: params.email,
       });
 
       // console.info('checkIfUserExist!!!', checkIfUserExist, params);
 
       if (checkIfUserExist?.email) {
-        return { error: `User with email ${params.email} already exist` }
+        return { error: `User with email ${params.email} already exist` };
       }
-
-      const newUser = new User({
-        firstName: params.firstName,
-        lastName: params.lastName,
-        email: params.email,
-        // passwordHash: passwordHash
-      });
 
       if (!params?.password) {
         return {
-          error: "Password can`t be null"
-        }
+          error: 'Password can`t be null',
+        };
       }
 
-      // console.info('newUser1!!!', newUser, newUser.save);
+      const newUser = await createUser(params);
 
-      await newUser.save();
-
-      // console.info('newUser2!!!', newUser);
-      await newUser.updatePassword(params.password);
+      console.info('newUser1!!!', newUser, newUser.save);
 
       return {
         newUser: {
@@ -171,20 +162,19 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
           email: newUser.email,
           updatedAt: newUser.updatedAt,
           createdAt: newUser.createdAt,
-        }
+        },
       };
-
     } catch (error) {
       return { error };
     }
   }
-}
+};
 
 exports.getUserMd = class getUserMd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "getUserMd";
-    this.description = "Get user from MariaDb";
+    this.name = 'getUserMd';
+    this.description = 'Get user from MariaDb';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {};
@@ -195,31 +185,31 @@ exports.getUserMd = class getUserMd extends AuthenticatedAction {
     const { params } = connection;
     console.info('getUserMd!!!', actionProcessor, params);
     try {
-
-      const where = params?.email ? {
-        email: params.email
-      } : {
-        lastName: params?.lastName
-      }
+      const where = params?.email
+        ? {
+            email: params.email,
+          }
+        : {
+            lastName: params?.lastName,
+          };
 
       // console.info('where!!!!!', where);
-      const user = await getUser(where)
+      const user = await getUser(where);
 
       return {
-        user
+        user,
       };
-
     } catch (error) {
       return { error };
     }
   }
-}
+};
 
 exports.deleteUserMd = class DeleteUserMd extends AuthenticatedAction {
   constructor() {
     super();
-    this.name = "deleteUserMd";
-    this.description = "Delete user from MariaDb";
+    this.name = 'deleteUserMd';
+    this.description = 'Delete user from MariaDb';
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {};
@@ -229,20 +219,24 @@ exports.deleteUserMd = class DeleteUserMd extends AuthenticatedAction {
     const { connection } = actionProcessor;
     const { params } = connection;
 
-    const options = params?.force ? {
-      force: true
-    } : {}
+    const options = params?.force
+      ? {
+          force: true,
+        }
+      : {};
 
-    const where = params?.quid ? {
-      quid: params.quid
-    } : {
-      email: params.email
-    }
+    const where = params?.quid
+      ? {
+          quid: params.quid,
+        }
+      : {
+          email: params.email,
+        };
 
     const deleteResult = await deleteUser(where, options);
 
     return {
-      deleteResult
-    }
+      deleteResult,
+    };
   }
-}
+};

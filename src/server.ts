@@ -1,28 +1,11 @@
 #!/usr/bin/env node
-import { Process } from "actionhero";
+import { Process } from 'actionhero';
+import * as path from 'path';
 import * as os from 'os';
 
 // load any custom code, configure the env, as needed
 
-const currentOS = os.platform();
-
-let separator;
-
-switch (currentOS) {
-  case "linux":
-    separator = '/';
-    break;
-  case "win32":
-    separator = "\\";
-    break;
-  default:
-    separator = "/";
-}
-
-const arrayFromAppDir = `${__dirname}`.split(`${separator}`);
-export const PWD: string = arrayFromAppDir
-  .slice(0, arrayFromAppDir.length - 1)
-  .join(`${separator}`);
+export const PWD: string = path.join(process.cwd());
 
 async function main() {
   // create a new actionhero process

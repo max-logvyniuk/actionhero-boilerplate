@@ -1,15 +1,15 @@
-import * as bcrypt from "bcrypt";
-import { api } from "actionhero";
+import * as bcrypt from 'bcrypt';
+import { api } from 'actionhero';
 
-import { User } from "../models/User";
+import { User } from '../models/User';
 
 const saltRounds = 10;
-const usersHash = "users";
+const usersHash = 'users';
 
 export async function add(userName: string, password: string) {
   const savedUser = await redis().hget(usersHash, userName);
   if (savedUser) {
-    throw new Error("userName already exists");
+    throw new Error('userName already exists');
   }
   const hashedPassword = await cryptPassword(password);
   const data = {
@@ -30,10 +30,7 @@ export async function list() {
   });
 }
 
-export async function authenticate(
-  userName: string,
-  password: string
-): Promise<boolean> {
+export async function authenticate(userName: string, password: string): Promise<boolean> {
   try {
     const dataString = await redis().hget(usersHash, userName);
     const data = JSON.parse(dataString);
@@ -64,12 +61,30 @@ function redis() {
   return api.redis.clients.client;
 }
 
-async function getUser(where: any, options?: {} ) {
+// MariaDb services
+
+async function createUser(data: any) {
+  const newUser = new User({
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    // passwordHash: passwordHash
+  });
+
+  await newUser.save();
+
+  // console.info('newUser2!!!', newUser);
+  await newUser.updatePassword(data.password);
+
+  return newUser;
+}
+
+async function getUser(where: any, options?: {}) {
   const defaultOptions = { raw: true, attributes: { exclude: ['password'] } };
-  options = { ...defaultOptions, ...options};
+  options = { ...defaultOptions, ...options };
   const user = await User.findOne({
     where,
-    ...options
+    ...options,
   });
 
   // console.info('getUser module!!!!!', where, user);
@@ -77,16 +92,18 @@ async function getUser(where: any, options?: {} ) {
   return user;
 }
 
-async function deleteUser(where: any, options?: {} ) {
+async function deleteUser(where: any, options?: {}) {
   const defaultOptions = { force: false };
-  options = { ...defaultOptions, ...options};
+  options = { ...defaultOptions, ...options };
   return User.destroy({
     where,
-    ...options
-  })
+    ...options,
+  });
 }
 
-export {
-  getUser,
-  deleteUser
+async function getUsersList() {
+  const users = await User.findAll({ raw: true });
+  return users;
 }
+
+export { getUser, getUsersList, createUser, deleteUser };

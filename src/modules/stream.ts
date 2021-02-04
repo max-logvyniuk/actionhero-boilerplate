@@ -1,6 +1,6 @@
-import { Writable, Readable } from "stream";
-import * as fs from "fs";
-import { PWD } from "../server";
+import { Writable, Readable } from 'stream';
+import * as fs from 'fs';
+import { PWD } from '../server';
 
 // const outStream = new Writable({
 //     write(chunk, encoding, callback) {
@@ -33,7 +33,7 @@ import { PWD } from "../server";
 // process.stdin.pipe(myStream);
 
 export async function fileWriteStreamHandler(...props) {
-  console.info("Custom fileWriteStreamHandler!!!!!!!!!!!!!!", props);
+  console.info('Custom fileWriteStreamHandler!!!!!!!!!!!!!!', props);
 }
 
 export async function readFile(path: string) {
@@ -42,10 +42,7 @@ export async function readFile(path: string) {
 }
 
 export async function writeDataToFile(fileName: string, encoding?: string) {
-  const ed = encoding || "utf-8";
-  const writeFileStream = await fs.createWriteStream(
-    `${PWD}/files/${fileName}`,
-    ed
-  );
+  const ed = encoding || 'utf-8';
+  const writeFileStream = await fs.createWriteStream(`${PWD}/files/${fileName}`, ed);
   return writeFileStream;
 }

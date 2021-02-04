@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import * as winston from 'winston';
 
 /*
 The loggers defined here will eventually be available via `import { loggers } from "actionhero"`
@@ -8,9 +8,7 @@ learn more about winston v3 loggers @
  - https://github.com/winstonjs/winston/blob/master/docs/transports.md
 */
 
-type ActionheroConfigLoggerBuilderArray = Array<
-  (config: any) => winston.Logger
->;
+type ActionheroConfigLoggerBuilderArray = Array<(config: any) => winston.Logger>;
 
 export const DEFAULT = {
   logger: (config) => {
@@ -30,9 +28,9 @@ export const DEFAULT = {
 export const test = {
   logger: (config) => {
     const loggers: ActionheroConfigLoggerBuilderArray = [];
-    loggers.push(buildConsoleLogger("crit"));
+    loggers.push(buildConsoleLogger('crit'));
     config.general.paths.log.forEach((p) => {
-      loggers.push(buildFileLogger(p, "debug", 1));
+      loggers.push(buildFileLogger(p, 'debug', 1));
     });
 
     return { loggers };
@@ -41,7 +39,7 @@ export const test = {
 
 // helpers for building the winston loggers
 
-function buildConsoleLogger(level = "info") {
+function buildConsoleLogger(level = 'info') {
   return function (config) {
     return winston.createLogger({
       format: winston.format.combine(
@@ -51,7 +49,7 @@ function buildConsoleLogger(level = "info") {
           return `${info.timestamp} - ${info.level}: ${
             info.message
           } ${stringifyExtraMessagePropertiesForConsole(info)}`;
-        })
+        }),
       ),
       level,
       levels: winston.config.syslog.levels,
@@ -61,15 +59,15 @@ function buildConsoleLogger(level = "info") {
 }
 
 function stringifyExtraMessagePropertiesForConsole(info) {
-  const skippedProperties = ["message", "timestamp", "level"];
-  let response = "";
+  const skippedProperties = ['message', 'timestamp', 'level'];
+  let response = '';
 
   for (const key in info) {
     const value = info[key];
     if (skippedProperties.includes(key)) {
       continue;
     }
-    if (value === undefined || value === null || value === "") {
+    if (value === undefined || value === null || value === '') {
       continue;
     }
     response += `${key}=${value} `;
@@ -78,14 +76,11 @@ function stringifyExtraMessagePropertiesForConsole(info) {
   return response;
 }
 
-function buildFileLogger(path, level = "info", maxFiles = undefined) {
+function buildFileLogger(path, level = 'info', maxFiles = undefined) {
   return function (config) {
     const filename = `${path}/${config.process.id}-${config.process.env}.log`;
     return winston.createLogger({
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-      ),
+      format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
       level,
       levels: winston.config.syslog.levels,
       transports: [

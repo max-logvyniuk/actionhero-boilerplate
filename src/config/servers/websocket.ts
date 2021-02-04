@@ -6,14 +6,14 @@ export const DEFAULT = {
       return {
         enabled: true,
         // you can pass a FQDN (like https://company.com) here or 'window.location.origin'
-        clientUrl: "window.location.origin",
+        clientUrl: 'window.location.origin',
         // Directory to render client-side JS.
         // Path should start with "/" and will be built starting from api.config..general.paths.public
-        clientJsPath: "javascript/",
+        clientJsPath: 'javascript/',
         // the name of the client-side JS file to render.  Both `.js` and `.min.js` versions will be created
         // do not include the file extension
         // set to `undefined` to not render the client-side JS on boot
-        clientJsName: "ActionheroWebsocketClient",
+        clientJsName: 'ActionheroWebsocketClient',
         // should the backend signal clients to not reconnect when the backend is shutdown/reboot
         destroyClientsOnShutdown: false,
 
@@ -34,7 +34,7 @@ export const DEFAULT = {
 
         // websocket Client Options:
         client: {
-          apiPath: "/api", // the api base endpoint on your actionhero backend
+          apiPath: '/api', // the api base endpoint on your actionhero backend
           // the cookie name we should use for shared authentication between WS and web connections
           cookieKey: config.servers.web.fingerprintOptions.cookieKey,
           // reconnect:        {},
