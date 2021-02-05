@@ -1,8 +1,6 @@
 import { Process, api, specHelper, action } from 'actionhero';
 import * as fs from 'fs';
 import * as assert from 'assert';
-import { ReadStream } from 'fs';
-import * as _ from 'lodash';
 
 import { PWD } from '../../src/server';
 
