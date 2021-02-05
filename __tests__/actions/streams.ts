@@ -2,9 +2,9 @@ import { Process, api, specHelper, action } from 'actionhero';
 import * as fs from 'fs';
 import * as assert from 'assert';
 
-import { PWD } from '../../src/server';
-
 const actionHero = new Process();
+
+const PWD = process.cwd();
 
 describe('actionHero Stream Test', () => {
   beforeAll(async () => {
