@@ -60,16 +60,6 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "ts",
-      "tsx",
-      "json"
-    ],
     "transform": {
       "^.+\\.ts?$": "ts-jest"
     }

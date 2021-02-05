@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
+    "allowJs": true,
     "module": "commonjs",
     "target": "ES6",
     "experimentalDecorators": true,
