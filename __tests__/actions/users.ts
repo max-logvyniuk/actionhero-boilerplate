@@ -1,15 +1,8 @@
 import { action, Process, api, specHelper } from 'actionhero';
-
 import { getUser, deleteUser } from '../../src/modules/users';
 import * as usersModule from '../../src/modules/users';
 
 const actionhero = new Process();
-
-console.info('Process!!!!', Process, Process?.prototype, Process.toString?.());
-
-const whereAttribute = {
-  email: 'john.smith@gmail.com',
-};
 
 describe('actionhero users Tests', () => {
   beforeAll(async () => {

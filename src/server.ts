@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { Process } from 'actionhero';
+import * as actionhero from 'actionhero';
 import * as path from 'path';
 import * as os from 'os';
 
@@ -9,7 +9,8 @@ export const PWD: string = path.join(process.cwd());
 
 async function main() {
   // create a new actionhero process
-  const app = new Process();
+  console.info('ACTION HERO!!!', actionhero);
+  const app = new actionhero.Process();
 
   // handle unix signals and uncaught exceptions & rejections
   app.registerProcessSignals((exitCode) => {
