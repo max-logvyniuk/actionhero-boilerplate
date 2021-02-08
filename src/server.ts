@@ -3,6 +3,7 @@ import { Process } from 'actionhero';
 
 // load any custom code, configure the env, as needed
 
+
 async function main() {
   // create a new actionhero process
   const app = new Process();
