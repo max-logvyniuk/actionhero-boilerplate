@@ -10,7 +10,7 @@ export const DEFAULT = {
         { path: '/comments/:userName/:title', action: 'commentsView' },
         { path: '/post/:userName/:title', action: 'postView' },
         { path: '/posts/:userName/', action: 'postsList' },
-        { path: '/stream', action: 'getDataStream' },
+        { path: '/stream', action: 'getDataStream' }
       ],
 
       post: [
@@ -19,7 +19,7 @@ export const DEFAULT = {
         { path: '/md-user', action: 'createUserMd' },
         { path: '/comment/:userName/:title', action: 'commentAdd' },
         { path: '/post/:userName/', action: 'postAdd' },
-        { path: '/stream', action: 'setDataWithStream' },
+        { path: '/stream', action: 'setDataWithStream' }
       ],
 
       put: [{ path: '/post/:userName/:title', action: 'postEdit' }],
@@ -29,10 +29,10 @@ export const DEFAULT = {
         { path: '/md-user', action: 'deleteUserMd' },
         {
           path: '/comment/:userName/:title/:commentId',
-          action: 'commentDelete',
+          action: 'commentDelete'
         },
-        { path: '/post/:userName/:title', action: 'postDelete' },
-      ],
+        { path: '/post/:userName/:title', action: 'postDelete' }
+      ]
     };
-  },
+  }
 };

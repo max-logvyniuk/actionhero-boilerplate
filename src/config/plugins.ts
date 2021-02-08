@@ -26,8 +26,8 @@ export const DEFAULT = {
 
     return {
       'ah-sequelize-plugin': {
-        path: path.join(process.cwd(), 'node_modules', 'ah-sequelize-plugin'),
-      },
+        path: path.join(process.cwd(), 'node_modules', 'ah-sequelize-plugin')
+      }
     };
-  },
+  }
 };

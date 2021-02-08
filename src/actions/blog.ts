@@ -1,4 +1,3 @@
-import { api } from 'actionhero';
 import { AuthenticatedAction } from './../classes/authenticatedAction';
 import * as Blog from './../modules/blog';
 
@@ -13,7 +12,7 @@ export class PostAdd extends AuthenticatedAction {
       userName: { required: true },
       password: { required: true },
       title: { required: true },
-      content: { required: true },
+      content: { required: true }
     };
   }
 
@@ -33,7 +32,7 @@ export class PostView extends AuthenticatedAction {
     this.authenticated = false;
     this.inputs = {
       userName: { required: true },
-      title: { required: true },
+      title: { required: true }
     };
   }
 
@@ -51,7 +50,7 @@ export class PostsList extends AuthenticatedAction {
     this.outputExample = {};
     this.authenticated = false;
     this.inputs = {
-      userName: { required: true },
+      userName: { required: true }
     };
   }
 
@@ -72,7 +71,7 @@ export class PostEdit extends AuthenticatedAction {
       userName: { required: true },
       password: { required: true },
       title: { required: true },
-      content: { required: true },
+      content: { required: true }
     };
   }
 
@@ -92,7 +91,7 @@ export class PostDelete extends AuthenticatedAction {
     this.inputs = {
       userName: { required: true },
       password: { required: true },
-      title: { required: true },
+      title: { required: true }
     };
   }
 
@@ -112,7 +111,7 @@ export class CommentAdd extends AuthenticatedAction {
       userName: { required: true },
       commenterName: { required: true },
       title: { required: true },
-      comment: { required: true },
+      comment: { required: true }
     };
   }
 
@@ -131,7 +130,7 @@ export class CommentsView extends AuthenticatedAction {
     this.authenticated = false;
     this.inputs = {
       userName: { required: true },
-      title: { required: true },
+      title: { required: true }
     };
   }
 
@@ -152,7 +151,7 @@ export class CommentDelete extends AuthenticatedAction {
       userName: { required: true },
       password: { required: true },
       commentId: { required: true },
-      title: { required: true },
+      title: { required: true }
     };
   }
 

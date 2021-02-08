@@ -6,6 +6,17 @@ import { User } from '../models/User';
 const saltRounds = 10;
 const usersHash = 'users';
 
+function redis() {
+  return api.redis.clients.client;
+}
+async function cryptPassword(password: string) {
+  return bcrypt.hash(password, saltRounds);
+}
+
+async function comparePassword(hashedPassword: string, userPassword: String) {
+  return bcrypt.compare(userPassword, hashedPassword);
+}
+
 export async function add(userName: string, password: string) {
   const savedUser = await redis().hget(usersHash, userName);
   if (savedUser) {
@@ -15,7 +26,7 @@ export async function add(userName: string, password: string) {
   const data = {
     userName: userName,
     hashedPassword: hashedPassword,
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime()
   };
 
   await redis().hset(usersHash, userName, JSON.stringify(data));
@@ -44,21 +55,12 @@ export async function authenticate(userName: string, password: string): Promise<
 export async function del(userName: string) {
   await redis().del(usersHash, userName);
   const titles = await api.blog.postsList(userName);
+
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (const i in titles) {
+    // eslint-disable-next-line no-await-in-loop
     await api.blog.deletePost(userName, titles[i]);
   }
-}
-
-async function cryptPassword(password: string) {
-  return bcrypt.hash(password, saltRounds);
-}
-
-async function comparePassword(hashedPassword: string, userPassword: String) {
-  return bcrypt.compare(userPassword, hashedPassword);
-}
-
-function redis() {
-  return api.redis.clients.client;
 }
 
 // MariaDb services
@@ -67,7 +69,7 @@ async function createUser(data: any) {
   const newUser = new User({
     firstName: data.firstName,
     lastName: data.lastName,
-    email: data.email,
+    email: data.email
     // passwordHash: passwordHash
   });
 
@@ -80,10 +82,11 @@ async function createUser(data: any) {
 
 async function getUser(where: any, options?: {}) {
   const defaultOptions = { raw: true, attributes: { exclude: ['password'] } };
+  // eslint-disable-next-line no-param-reassign
   options = { ...defaultOptions, ...options };
   const user = await User.findOne({
     where,
-    ...options,
+    ...options
   });
 
   return user;
@@ -91,10 +94,11 @@ async function getUser(where: any, options?: {}) {
 
 async function deleteUser(where: any, options?: {}) {
   const defaultOptions = { force: false };
+  // eslint-disable-next-line no-param-reassign
   options = { ...defaultOptions, ...options };
   return User.destroy({
     where,
-    ...options,
+    ...options
   });
 }
 
@@ -103,4 +107,9 @@ async function getUsersList() {
   return users;
 }
 
-export { getUser, getUsersList, createUser, deleteUser };
+export {
+  getUser,
+  getUsersList,
+  createUser,
+  deleteUser
+};

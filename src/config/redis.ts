@@ -30,7 +30,7 @@ export const DEFAULT = {
       port,
       host,
       password,
-      db: parseInt(db),
+      db: parseInt(db, 10),
       // you can learn more about retryStrategy @ https://github.com/luin/ioredis#auto-reconnect
       retryStrategy: (times) => {
         if (times === 1) {
@@ -38,7 +38,7 @@ export const DEFAULT = {
           return 5000;
         }
         return Math.min(times * 50, maxBackoff);
-      },
+      }
     };
 
     return {
@@ -48,25 +48,27 @@ export const DEFAULT = {
       client: {
         konstructor,
         args: [commonArgs],
-        buildNew: true,
+        buildNew: true
       },
       subscriber: {
         konstructor,
         args: [commonArgs],
-        buildNew: true,
+        buildNew: true
       },
       tasks: {
         konstructor,
         args: [commonArgs],
-        buildNew: true,
-      },
+        buildNew: true
+      }
     };
-  },
+  }
 };
 
 /**
- * If you do not want to connect to a real redis backend, and want to emulate the functionally of redis in-memory, you can use `MockIORedis`
- * Note that large data sets will be stored in RAM, and not persisted to disk.  Multiple Actionhero processes cannot share cache, chat messages, etc.
+ * If you do not want to connect to a real redis backend, and want to emulate the functionally
+ * of redis in-memory, you can use `MockIORedis`
+ * Note that large data sets will be stored in RAM, and not persisted to disk.
+ * Multiple Actionhero processes cannot share cache, chat messages, etc.
  * Redis Pub/Sub works with this configuration.
  */
 

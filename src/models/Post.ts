@@ -7,7 +7,7 @@ import {
   BeforeCreate,
   HasOne,
   BelongsTo,
-  ForeignKey,
+  ForeignKey
 } from 'sequelize-typescript';
 
 import { User } from './User';

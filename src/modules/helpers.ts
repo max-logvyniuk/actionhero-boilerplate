@@ -12,6 +12,6 @@ export function generateCustomHash(symbolsArray: any[], callback: (hash: string)
 
   return {
     generatedHash,
-    generatedHashCallback: callback(generatedHash),
+    generatedHashCallback: callback(generatedHash)
   };
 }

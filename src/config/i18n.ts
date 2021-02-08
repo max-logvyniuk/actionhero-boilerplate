@@ -23,7 +23,7 @@ export const DEFAULT = {
       // by default, every request will be in the 'en' locale
       // this method will be called within the localization middleware on all requests
       // this method should be set on the `i18n` object exported by actionhero.
-      determineConnectionLocale: 'determineConnectionLocale',
+      determineConnectionLocale: 'determineConnectionLocale'
     };
-  },
+  }
 };

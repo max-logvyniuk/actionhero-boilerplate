@@ -36,7 +36,7 @@ export const DEFAULT = {
       directoryFileType: 'index.html',
       // What log-level should we use for file requests?
       fileRequestLogLevel: 'info',
-      // The default priority level given to middleware of all types (action, connection, say, and task)
+      // The default priority level given to middleware of all types (action, connection, say, task)
       defaultMiddlewarePriority: 100,
       // Which channel to use on redis pub/sub for RPC communication
       channel: 'actionhero',
@@ -59,16 +59,16 @@ export const DEFAULT = {
         test: [path.join(process.cwd(), '__tests__')],
         // for the src and dist paths, assume we are running in compiled mode from `dist`
         src: path.join(process.cwd(), 'src'),
-        dist: path.join(process.cwd(), 'dist'),
+        dist: path.join(process.cwd(), 'dist')
       },
 
       // hash containing chat rooms you wish to be created at backend boot
       startingChatRooms: {
         // format is {roomName: {authKey, authValue}}
         // 'secureRoom': {authorized: true},
-      },
+      }
     };
-  },
+  }
 };
 
 export const test = {
@@ -77,20 +77,20 @@ export const test = {
       serverToken: `serverToken-${process.env.JEST_WORKER_ID || 0}`,
       startingChatRooms: {
         defaultRoom: {},
-        otherRoom: {},
+        otherRoom: {}
       },
       paths: {
-        locale: [path.join(process.cwd(), 'locales')],
+        locale: [path.join(process.cwd(), 'locales')]
       },
-      rpcTimeout: 3000,
+      rpcTimeout: 3000
     };
-  },
+  }
 };
 
 export const production = {
   general: (config) => {
     return {
-      fileRequestLogLevel: 'debug',
+      fileRequestLogLevel: 'debug'
     };
-  },
+  }
 };

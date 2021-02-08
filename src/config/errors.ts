@@ -12,27 +12,24 @@ export const DEFAULT = {
           web: (error) => {
             if (error.message) {
               return String(error.message);
-            } else {
-              return error;
             }
+            return error;
           },
           websocket: (error) => {
             if (error.message) {
               return String(error.message);
-            } else {
-              return error;
             }
+            return error;
           },
           specHelper: (error) => {
             if (error.message) {
               return 'Error: ' + String(error.message);
-            } else {
-              return error;
             }
-          },
+            return error;
+          }
         },
         // See ActionProcessor#applyDefaultErrorLogLineFormat to see an example of how to customize
-        actionProcessor: null,
+        actionProcessor: null
       },
 
       // ///////////
@@ -51,7 +48,7 @@ export const DEFAULT = {
       missingParams: (data, missingParams) => {
         return data.connection.localize([
           'actionhero.errors.missingParams',
-          { param: missingParams[0] },
+          { param: missingParams[0] }
         ]);
       },
 
@@ -64,7 +61,7 @@ export const DEFAULT = {
       unsupportedServerType: (data) => {
         return data.connection.localize([
           'actionhero.errors.unsupportedServerType',
-          { type: data.connection.type },
+          { type: data.connection.type }
         ]);
       },
 
@@ -144,7 +141,7 @@ export const DEFAULT = {
 
       connectionRoomRequired: (room) => {
         return 'a room is required';
-      },
+      }
     };
-  },
+  }
 };

@@ -8,7 +8,8 @@ export const DEFAULT = {
 
       // what queues should the taskProcessors work?
       queues: ['*'],
-      // Or, rather than providing a static list of `queues`, you can define a method that returns the list of queues.
+      // Or, rather than providing a static list of `queues`, you can define a method that returns
+      // the list of queues.
       // queues: async () => { return ["queueA", "queueB"]; },
 
       // Logging levels of task workers
@@ -22,7 +23,7 @@ export const DEFAULT = {
         job: 'debug',
         pause: 'debug',
         internalError: 'error',
-        multiWorkerAction: 'debug',
+        multiWorkerAction: 'debug'
       },
       // Logging levels of the task scheduler
       schedulerLogging: {
@@ -32,7 +33,7 @@ export const DEFAULT = {
         enqueue: 'debug',
         reEnqueue: 'debug',
         working_timestamp: 'debug',
-        transferred_job: 'debug',
+        transferred_job: 'debug'
       },
       // how long to sleep between jobs / scheduler checks
       timeout: 5000,
@@ -47,26 +48,27 @@ export const DEFAULT = {
       maxEventLoopDelay: 5,
       // how long before we mark a resque worker / task processor as stuck/dead?
       stuckWorkerTimeout: 1000 * 60 * 60,
-      // should the scheduler automatically try to retry failed tasks which were failed due to being 'stuck'?
+      // should the scheduler automatically try to retry failed tasks which were failed due to
+      // being 'stuck'?
       retryStuckJobs: false,
       // Customize Resque primitives, replace null with required replacement.
       resque_overrides: {
         queue: null,
         multiWorker: null,
-        scheduler: null,
+        scheduler: null
       },
       connectionOptions: {
-        tasks: {},
-      },
+        tasks: {}
+      }
     };
-  },
+  }
 };
 
 export const test = {
   tasks: (config) => {
     return {
       timeout: 100,
-      checkTimeout: 50,
+      checkTimeout: 50
     };
-  },
+  }
 };

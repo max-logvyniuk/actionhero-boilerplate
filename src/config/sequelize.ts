@@ -29,30 +29,30 @@ export const DEFAULT = {
       autoMigrate: true,
       logging: false,
       dialect: dialect,
-      port: parseInt(port),
+      port: parseInt(port, 10),
       database: database,
       host: host,
       username: username,
       password: password || 'root',
       models: [join(__dirname, '..', 'models')],
-      migrations: [join(__dirname, '..', 'migrations')],
+      migrations: [join(__dirname, '..', 'migrations')]
       // you can also pass "dialectOptions", for example if you need `{ssl: true}` for Postgres
     };
-  },
+  }
 };
 
 // for the sequelize CLI tool
 module.exports.development = DEFAULT.sequelize({
   env: 'development',
-  process: { env: 'development' },
+  process: { env: 'development' }
 });
 
 module.exports.staging = DEFAULT.sequelize({
   env: 'staging',
-  process: { env: 'staging' },
+  process: { env: 'staging' }
 });
 
 module.exports.production = DEFAULT.sequelize({
   env: 'production',
-  process: { env: 'production' },
+  process: { env: 'production' }
 });

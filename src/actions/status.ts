@@ -1,4 +1,6 @@
-import { api, id, task, Action, actionheroVersion } from 'actionhero';
+import {
+  api, id, task, Action, actionheroVersion
+} from 'actionhero';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -6,7 +8,8 @@ const packageJSON = JSON.parse(
   fs.readFileSync(path.normalize(path.join(__dirname, '..', '..', 'package.json'))).toString(),
 );
 
-// These values are probably good starting points, but you should expect to tweak them for your application
+// These values are probably good starting points, but you should expect to tweak them for
+// your application
 const maxEventLoopDelay = process.env.eventLoopDelay || 10;
 const maxMemoryAlloted = process.env.maxMemoryAlloted || 500;
 const maxResqueQueueLength = process.env.maxResqueQueueLength || 1000;
@@ -19,7 +22,7 @@ module.exports = class Status extends Action {
     this.outputExample = {
       id: '192.168.2.11',
       actionheroVersion: '9.4.1',
-      uptime: 10469,
+      uptime: 10469
     };
   }
 
@@ -33,7 +36,7 @@ module.exports = class Status extends Action {
       problems.push(
         connection.localize([
           'Using more than {{maxMemoryAlloted}} MB of RAM/HEAP',
-          { maxMemoryAlloted: maxMemoryAlloted },
+          { maxMemoryAlloted: maxMemoryAlloted }
         ]),
       );
     }
@@ -50,7 +53,7 @@ module.exports = class Status extends Action {
       problems.push(
         connection.localize([
           'Resque Queues over {{maxResqueQueueLength}} jobs',
-          { maxResqueQueueLength: maxResqueQueueLength },
+          { maxResqueQueueLength: maxResqueQueueLength }
         ]),
       );
     }
@@ -65,7 +68,7 @@ module.exports = class Status extends Action {
       consumedMemoryMB,
       resqueTotalQueueLength,
       nodeStatus,
-      problems,
+      problems
     };
   }
 };

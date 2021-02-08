@@ -24,7 +24,7 @@ export class GetDataStream extends AuthenticatedAction {
     // const dataStream = await StreamFiles.readFile(params.fileName);
 
     return {
-      dataStream,
+      dataStream
     };
     // return dataStream;
   }
@@ -48,7 +48,7 @@ export class SetDataWithStream extends AuthenticatedAction {
      * form-data
      * enctype multipart/form-data
      * file "choose upload file"
-     * **/
+     * * */
     const { connection } = actionProcessor;
     const { params } = connection;
 

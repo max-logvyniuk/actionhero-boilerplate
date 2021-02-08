@@ -6,7 +6,7 @@ import {
   AllowNull,
   IsEmail,
   BeforeCreate,
-  HasMany,
+  HasMany
 } from 'sequelize-typescript';
 import { v4 as uuid } from 'uuid';
 import { Post } from './Post';
@@ -40,6 +40,7 @@ export class User extends Model implements Model {
   @BeforeCreate
   static async generateGuid(instance) {
     if (!instance.guid) {
+      // eslint-disable-next-line no-param-reassign
       instance.guid = await uuid();
     }
   }

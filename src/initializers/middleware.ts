@@ -18,7 +18,7 @@ export class AuthenticationMiddleware extends Initializer {
             throw Error('Authentication Failed.  userName and password required');
           }
         }
-      },
+      }
     };
 
     action.addMiddleware(middleware);

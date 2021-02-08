@@ -10,64 +10,21 @@ learn more about winston v3 loggers @
 
 type ActionheroConfigLoggerBuilderArray = Array<(config: any) => winston.Logger>;
 
-export const DEFAULT = {
-  logger: (config) => {
-    const loggers: ActionheroConfigLoggerBuilderArray = [];
-    loggers.push(buildConsoleLogger());
-    config.general.paths.log.forEach((p) => {
-      loggers.push(buildFileLogger(p));
-    });
-
-    return {
-      loggers,
-      maxLogStringLength: 100, // the maximum length of param to log (we will truncate)
-    };
-  },
-};
-
-export const test = {
-  logger: (config) => {
-    const loggers: ActionheroConfigLoggerBuilderArray = [];
-    loggers.push(buildConsoleLogger('crit'));
-    config.general.paths.log.forEach((p) => {
-      loggers.push(buildFileLogger(p, 'debug', 1));
-    });
-
-    return { loggers };
-  },
-};
-
 // helpers for building the winston loggers
-
-function buildConsoleLogger(level = 'info') {
-  return function (config) {
-    return winston.createLogger({
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.colorize(),
-        winston.format.printf((info) => {
-          return `${info.timestamp} - ${info.level}: ${
-            info.message
-          } ${stringifyExtraMessagePropertiesForConsole(info)}`;
-        }),
-      ),
-      level,
-      levels: winston.config.syslog.levels,
-      transports: [new winston.transports.Console()],
-    });
-  };
-}
 
 function stringifyExtraMessagePropertiesForConsole(info) {
   const skippedProperties = ['message', 'timestamp', 'level'];
   let response = '';
 
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (const key in info) {
     const value = info[key];
     if (skippedProperties.includes(key)) {
+      // eslint-disable-next-line no-continue
       continue;
     }
     if (value === undefined || value === null || value === '') {
+      // eslint-disable-next-line no-continue
       continue;
     }
     response += `${key}=${value} `;
@@ -86,9 +43,55 @@ function buildFileLogger(path, level = 'info', maxFiles = undefined) {
       transports: [
         new winston.transports.File({
           filename,
-          maxFiles,
-        }),
-      ],
+          maxFiles
+        })
+      ]
     });
   };
 }
+
+function buildConsoleLogger(level = 'info') {
+  return function (config) {
+    return winston.createLogger({
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.colorize(),
+        winston.format.printf((info) => {
+          return `${info.timestamp} - ${info.level}: ${
+            info.message
+          } ${stringifyExtraMessagePropertiesForConsole(info)}`;
+        }),
+      ),
+      level,
+      levels: winston.config.syslog.levels,
+      transports: [new winston.transports.Console()]
+    });
+  };
+}
+
+export const DEFAULT = {
+  logger: (config) => {
+    const loggers: ActionheroConfigLoggerBuilderArray = [];
+    loggers.push(buildConsoleLogger());
+    config.general.paths.log.forEach((p) => {
+      loggers.push(buildFileLogger(p));
+    });
+
+    return {
+      loggers,
+      maxLogStringLength: 100 // the maximum length of param to log (we will truncate)
+    };
+  }
+};
+
+export const test = {
+  logger: (config) => {
+    const loggers: ActionheroConfigLoggerBuilderArray = [];
+    loggers.push(buildConsoleLogger('crit'));
+    config.general.paths.log.forEach((p) => {
+      loggers.push(buildFileLogger(p, 'debug', 1));
+    });
+
+    return { loggers };
+  }
+};

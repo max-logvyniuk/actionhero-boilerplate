@@ -10,20 +10,20 @@ const parentPackageJSON = JSON.parse(
 
 const responses = {
   200: {
-    description: 'successful operation',
+    description: 'successful operation'
   },
   400: {
-    description: 'Invalid input',
+    description: 'Invalid input'
   },
   404: {
-    description: 'Not Found',
+    description: 'Not Found'
   },
   422: {
-    description: 'Missing or invalid params',
+    description: 'Missing or invalid params'
   },
   500: {
-    description: 'Server error',
-  },
+    description: 'Server error'
+  }
 };
 
 export class Swagger extends Action {
@@ -101,22 +101,20 @@ export class Swagger extends Action {
                 name: inputName,
                 type: 'string', // not really true, but helps the swagger validator
                 required:
-                  action.inputs[inputName].required || route.path.includes(`:${inputName}`)
-                    ? true
-                    : false,
+                  !!(action.inputs[inputName].required || route.path.includes(`:${inputName}`)),
                 default:
-                  action.inputs[inputName].default !== null &&
-                  action.inputs[inputName].default !== undefined
+                  action.inputs[inputName].default !== null
+                  && action.inputs[inputName].default !== undefined
                     ? typeof action.inputs[inputName].default === 'object'
                       ? JSON.stringify(action.inputs[inputName].default)
                       : typeof action.inputs[inputName].default === 'function'
-                      ? action.inputs[inputName].default()
-                      : `${action.inputs[inputName].default}`
-                    : undefined,
+                        ? action.inputs[inputName].default()
+                        : `${action.inputs[inputName].default}`
+                    : undefined
               };
             }),
           responses,
-          security: [],
+          security: []
         };
 
         if (!tags.includes(tag)) {
@@ -137,7 +135,7 @@ export class Swagger extends Action {
         description: parentPackageJSON.description,
         version: parentPackageJSON.version,
         title: parentPackageJSON.name,
-        license: { name: parentPackageJSON.license },
+        license: { name: parentPackageJSON.license }
       },
       host: config.servers.web.allowedRequestHosts[0]
         ? config.servers.web.allowedRequestHosts[0].replace('https://', '').replace('http://', '')
@@ -154,8 +152,8 @@ export class Swagger extends Action {
       },
       externalDocs: {
         description: 'Learn more about Actionhero',
-        url: 'https://www.actionherojs.com',
-      },
+        url: 'https://www.actionherojs.com'
+      }
     };
   }
 }

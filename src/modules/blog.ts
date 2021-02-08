@@ -4,6 +4,24 @@ const separator = ';';
 const postPrefix = 'posts';
 const commentPrefix = 'comments:';
 
+function buildTitleKey(userName: string, title = '') {
+  // "posts:evan:my first post"
+  return postPrefix + separator + userName + separator + title;
+}
+
+function buildCommentKey(userName: string, title: string) {
+  // "comments:evan:my first post"
+  return commentPrefix + separator + userName + separator + title;
+}
+
+function buildCommentId(commenterName: string) {
+  return commenterName + new Date().getTime();
+}
+
+function redis() {
+  return api.redis.clients.client;
+}
+
 export async function postAdd(userName: string, title: string, content: string) {
   const key = buildTitleKey(userName, title);
   const data = {
@@ -11,7 +29,7 @@ export async function postAdd(userName: string, title: string, content: string) 
     title,
     userName,
     createdAt: new Date().getTime(),
-    updatedAt: new Date().getTime(),
+    updatedAt: new Date().getTime()
   };
   await redis().hmset(key, data);
 }
@@ -41,7 +59,7 @@ export async function postEdit(userName: string, title: string, content: string)
     title,
     userName,
     createdAt: data.createdAt,
-    updatedAt: new Date().getTime(),
+    updatedAt: new Date().getTime()
   };
   await redis().hmset(key, newData);
 }
@@ -65,7 +83,7 @@ export async function commentAdd(
     comment,
     commenterName,
     createdAt: new Date().getTime(),
-    commentId: commentId,
+    commentId: commentId
   };
   await redis().hset(key, commentId, JSON.stringify(data));
 }
@@ -73,8 +91,8 @@ export async function commentAdd(
 export async function commentsView(userName: string, title: string) {
   const key = buildCommentKey(userName, title);
   const data = await redis().hgetall(key);
-  const comments = Object.keys(data).map((key) => {
-    const comment = data[key];
+  const comments = Object.keys(data).map((k) => {
+    const comment = data[k];
     return JSON.parse(comment);
   });
   return comments;
@@ -83,22 +101,4 @@ export async function commentsView(userName: string, title: string) {
 export async function commentDelete(userName: string, title: string, commentId: string) {
   const key = buildCommentKey(userName, title);
   await redis().hdel(key, commentId);
-}
-
-function buildTitleKey(userName: string, title = '') {
-  // "posts:evan:my first post"
-  return postPrefix + separator + userName + separator + title;
-}
-
-function buildCommentKey(userName: string, title: string) {
-  // "comments:evan:my first post"
-  return commentPrefix + separator + userName + separator + title;
-}
-
-function buildCommentId(commenterName: string) {
-  return commenterName + new Date().getTime();
-}
-
-function redis() {
-  return api.redis.clients.client;
 }

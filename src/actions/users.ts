@@ -1,9 +1,9 @@
-import * as bcrypt from 'bcrypt';
-
 import { AuthenticatedAction } from './../classes/authenticatedAction';
 import * as Users from './../modules/users';
 import { User } from '../models/User';
-import { createUser, getUser, getUsersList, deleteUser } from './../modules/users';
+import {
+  createUser, getUser, getUsersList, deleteUser
+} from './../modules/users';
 
 const saltRounds = 10;
 
@@ -16,7 +16,7 @@ exports.userAdd = class UserAdd extends AuthenticatedAction {
     this.authenticated = false;
     this.inputs = {
       userName: { required: true },
-      password: { required: true },
+      password: { required: true }
     };
   }
 
@@ -35,7 +35,7 @@ exports.userDelete = class UserDelete extends AuthenticatedAction {
     this.authenticated = true;
     this.inputs = {
       userName: { required: true },
-      password: { required: true },
+      password: { required: true }
     };
   }
 
@@ -59,7 +59,7 @@ exports.usersList = class UsersList extends AuthenticatedAction {
     return {
       users: users.map((user) => {
         return user.userName;
-      }),
+      })
     };
   }
 };
@@ -73,7 +73,7 @@ exports.authenticate = class Authenticate extends AuthenticatedAction {
     this.authenticated = false;
     this.inputs = {
       userName: { required: true },
-      password: { required: true },
+      password: { required: true }
     };
   }
 
@@ -104,12 +104,12 @@ exports.usersListMd = class UsersListMd extends AuthenticatedAction {
       // console.info('Md users!!!', users);
       if (users?.length && users?.length > 0) {
         return {
-          users,
+          users
         };
       }
 
       return {
-        users: null,
+        users: null
       };
     } catch (error) {
       return { error };
@@ -132,7 +132,7 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
     const params = connection.params;
     try {
       const checkIfUserExist = await getUser({
-        email: params.email,
+        email: params.email
       });
 
       if (checkIfUserExist?.email) {
@@ -141,7 +141,7 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
 
       if (!params?.password) {
         return {
-          error: 'Password can`t be null',
+          error: 'Password can`t be null'
         };
       }
 
@@ -154,8 +154,8 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
           lastName: newUser.lastName,
           email: newUser.email,
           updatedAt: newUser.updatedAt,
-          createdAt: newUser.createdAt,
-        },
+          createdAt: newUser.createdAt
+        }
       };
     } catch (error) {
       return { error };
@@ -180,16 +180,16 @@ exports.getUserMd = class getUserMd extends AuthenticatedAction {
     try {
       const where = params?.email
         ? {
-            email: params.email,
-          }
+          email: params.email
+        }
         : {
-            lastName: params?.lastName,
-          };
+          lastName: params?.lastName
+        };
 
       const user = await getUser(where);
 
       return {
-        user,
+        user
       };
     } catch (error) {
       return { error };
@@ -213,22 +213,22 @@ exports.deleteUserMd = class DeleteUserMd extends AuthenticatedAction {
 
     const options = params?.force
       ? {
-          force: true,
-        }
+        force: true
+      }
       : {};
 
     const where = params?.quid
       ? {
-          quid: params.quid,
-        }
+        quid: params.quid
+      }
       : {
-          email: params.email,
-        };
+        email: params.email
+      };
 
     const deleteResult = await deleteUser(where, options);
 
     return {
-      deleteResult,
+      deleteResult
     };
   }
 };
