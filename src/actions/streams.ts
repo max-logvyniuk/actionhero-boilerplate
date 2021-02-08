@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 
 import { AuthenticatedAction } from '../classes/authenticatedAction';
-import { PWD } from '../server';
 import * as StreamFiles from './../modules/stream';
 
 export class GetDataStream extends AuthenticatedAction {
@@ -21,7 +20,7 @@ export class GetDataStream extends AuthenticatedAction {
     const { connection } = actionProcessor;
     const { params } = connection;
 
-    const dataStream = await fs.createReadStream(`${PWD}/files/${params.fileName}`);
+    const dataStream = await fs.createReadStream(`${process.cwd()}/files/${params.fileName}`);
     // const dataStream = await StreamFiles.readFile(params.fileName);
 
     return {
@@ -53,14 +52,11 @@ export class SetDataWithStream extends AuthenticatedAction {
     const { connection } = actionProcessor;
     const { params } = connection;
 
-    console.info('Stream query!!!!!!!!!!', actionProcessor);
-
-    await fs.rename(params.file.path, `${PWD}/files/${params.file.name}`, (err) => {
+    await fs.rename(params.file.path, `${process.cwd()}/files/${params.file.name}`, (err) => {
       if (err) throw err;
-      console.log('renamed complete!!!!!!!!!!!!!');
     });
 
-    const newFile = await StreamFiles.readFile(`${PWD}/files/${params.file.name}`);
+    const newFile = await StreamFiles.readFile(`${process.cwd()}/files/${params.file.name}`);
 
     return newFile;
   }

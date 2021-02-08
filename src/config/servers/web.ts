@@ -1,5 +1,4 @@
 import * as os from 'os';
-import { PWD } from '../../server';
 
 import * as StreamTools from '../../modules/stream';
 
@@ -72,7 +71,7 @@ export const DEFAULT = {
         //  More options and details at https://github.com/felixge/node-formidable
         formOptions: {
           // uploadDir: os.tmpdir(),
-          uploadDir: `${PWD}/files`,
+          uploadDir: `${process.cwd()}/files`,
           keepExtensions: false,
           maxFieldsSize: 1024 * 1024 * 20,
           maxFileSize: 1024 * 1024 * 1024 * 200,

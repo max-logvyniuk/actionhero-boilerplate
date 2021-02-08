@@ -130,15 +130,10 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
   async run(actionProcessor) {
     const { connection } = actionProcessor;
     const params = connection.params;
-    // console.info('createUserMd!!!', actionProcessor, params);
     try {
-      // const passwordHash = await bcrypt.hash(params.password, saltRounds)
-
       const checkIfUserExist = await getUser({
         email: params.email,
       });
-
-      // console.info('checkIfUserExist!!!', checkIfUserExist, params);
 
       if (checkIfUserExist?.email) {
         return { error: `User with email ${params.email} already exist` };
@@ -151,8 +146,6 @@ exports.createUserMd = class CreateUserMd extends AuthenticatedAction {
       }
 
       const newUser = await createUser(params);
-
-      console.info('newUser1!!!', newUser, newUser.save);
 
       return {
         newUser: {
@@ -183,7 +176,7 @@ exports.getUserMd = class getUserMd extends AuthenticatedAction {
   async run(actionProcessor) {
     const { connection } = actionProcessor;
     const { params } = connection;
-    console.info('getUserMd!!!', actionProcessor, params);
+
     try {
       const where = params?.email
         ? {
@@ -193,7 +186,6 @@ exports.getUserMd = class getUserMd extends AuthenticatedAction {
             lastName: params?.lastName,
           };
 
-      // console.info('where!!!!!', where);
       const user = await getUser(where);
 
       return {

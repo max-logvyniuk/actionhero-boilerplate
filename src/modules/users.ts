@@ -73,7 +73,6 @@ async function createUser(data: any) {
 
   await newUser.save();
 
-  // console.info('newUser2!!!', newUser);
   await newUser.updatePassword(data.password);
 
   return newUser;
@@ -86,8 +85,6 @@ async function getUser(where: any, options?: {}) {
     where,
     ...options,
   });
-
-  // console.info('getUser module!!!!!', where, user);
 
   return user;
 }

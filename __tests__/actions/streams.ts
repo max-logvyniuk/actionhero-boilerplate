@@ -27,10 +27,6 @@ describe('actionHero Stream Test', () => {
       fileName: 'new.txt',
     });
 
-    // const dataStream: ReadableStream = response.dataStream;
-
-    // console.info('Stream test!!!', dataStream, readStream);
-
     expect(fs.createReadStream).toHaveBeenCalledWith(`${PWD}/files/new.txt`);
     expect(dataStream).toMatchObject({});
   });

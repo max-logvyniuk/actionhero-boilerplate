@@ -1,16 +1,11 @@
 #!/usr/bin/env node
-import * as actionhero from 'actionhero';
-import * as path from 'path';
-import * as os from 'os';
+import { Process } from 'actionhero';
 
 // load any custom code, configure the env, as needed
 
-export const PWD: string = path.join(process.cwd());
-
 async function main() {
   // create a new actionhero process
-  console.info('ACTION HERO!!!', actionhero);
-  const app = new actionhero.Process();
+  const app = new Process();
 
   // handle unix signals and uncaught exceptions & rejections
   app.registerProcessSignals((exitCode) => {

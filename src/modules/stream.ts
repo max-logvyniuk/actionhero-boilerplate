@@ -1,6 +1,5 @@
 import { Writable, Readable } from 'stream';
 import * as fs from 'fs';
-import { PWD } from '../server';
 
 // const outStream = new Writable({
 //     write(chunk, encoding, callback) {
@@ -43,6 +42,6 @@ export async function readFile(path: string) {
 
 export async function writeDataToFile(fileName: string, encoding?: string) {
   const ed = encoding || 'utf-8';
-  const writeFileStream = await fs.createWriteStream(`${PWD}/files/${fileName}`, ed);
+  const writeFileStream = await fs.createWriteStream(`${process.cwd()}/files/${fileName}`, ed);
   return writeFileStream;
 }

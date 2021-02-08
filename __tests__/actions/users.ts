@@ -111,7 +111,6 @@ describe('actionhero users Tests', () => {
     ]);
     const { users, error } = await specHelper.runAction('usersListMd', {});
 
-    // console.info('Test can get user from mariaDB!!!', users[0], users, error);
     expect(users[0]?.firstName).toStrictEqual(expect.any(String));
   });
 
@@ -122,8 +121,6 @@ describe('actionhero users Tests', () => {
     mockedGetUsersListFunction.mockResolvedValue(null);
 
     const { users, error } = await specHelper.runAction('usersListMd');
-
-    console.info('Users list error!!!!', users, error);
 
     expect(users).toBeNull();
   });

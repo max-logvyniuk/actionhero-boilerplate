@@ -55,7 +55,7 @@
     "postinstall": "yarn build",
     "production": "yarn run postinstall && node ./dist/server.js",
     "start": "node ./dist/server.js",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:coverage": "jest --collect-coverage"
   },
   "jest": {
