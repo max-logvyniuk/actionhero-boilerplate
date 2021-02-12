@@ -1,4 +1,6 @@
-import { Process, env, id, specHelper } from 'actionhero';
+import {
+  Process, env, id, specHelper
+} from 'actionhero';
 const actionhero = new Process();
 let api;
 

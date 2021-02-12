@@ -43,6 +43,7 @@
     "axios": "^0.21.1",
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-jest": "^24.1.3",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.3",
@@ -83,7 +84,11 @@
           ".stylelintrc"
         ],
         "options": {
-          "parser": ["json", "js", "ts"]
+          "parser": [
+            "json",
+            "js",
+            "ts"
+          ]
         }
       }
     ],

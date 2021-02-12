@@ -85,6 +85,15 @@ async function getUser(where: any, options?: {}) {
   // eslint-disable-next-line no-param-reassign
   options = { ...defaultOptions, ...options };
   const user = await User.findOne({
+    attributes: [
+      'guid',
+      'firstName',
+      'lastName',
+      'email',
+      'createdAt',
+      'updatedAt',
+      'deletedAt'
+    ],
     where,
     ...options
   });
@@ -103,7 +112,20 @@ async function deleteUser(where: any, options?: {}) {
 }
 
 async function getUsersList() {
-  const users = await User.findAll({ raw: true });
+  const users = await User.findAll(
+    {
+      attributes: [
+        'guid',
+        'firstName',
+        'lastName',
+        'email',
+        'createdAt',
+        'updatedAt',
+        'deletedAt'
+      ],
+      raw: true
+    }
+  );
   return users;
 }
 

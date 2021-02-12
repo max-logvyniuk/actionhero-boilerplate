@@ -1,4 +1,6 @@
-import { Process, api, specHelper, action } from 'actionhero';
+import {
+  Process, api, specHelper, action
+} from 'actionhero';
 import * as fs from 'fs';
 import * as assert from 'assert';
 
@@ -23,9 +25,13 @@ describe('actionHero Stream Test', () => {
     // @ts-ignore
     const readStream = await fs.createReadStream.mockResolvedValue({});
 
-    const { dataStream, error } = await action.run('getDataStream', null, {
-      fileName: 'new.txt',
-    });
+    const { dataStream, error } = await action.run(
+      'getDataStream',
+      null,
+      {
+        fileName: 'new.txt'
+      }
+    );
 
     expect(fs.createReadStream).toHaveBeenCalledWith(`${PWD}/files/new.txt`);
     expect(dataStream).toMatchObject({});
@@ -35,9 +41,13 @@ describe('actionHero Stream Test', () => {
     it('return file stream', async () => {
       const readStream = await fs.createReadStream(`${PWD}/files/new.txt`);
 
-      const { dataStream, error } = await action.run('getDataStream', null, {
-        fileName: 'new.txt',
-      });
+      const { dataStream, error } = await action.run(
+        'getDataStream',
+        null,
+        {
+          fileName: 'new.txt'
+        }
+      );
       assert.strictEqual(readStream, dataStream);
     });
   });

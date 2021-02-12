@@ -2,10 +2,13 @@ module.exports = {
   extends: [
     'airbnb-base/legacy'
   ],
-  // parserOptions: {
-  //   project: './tsconfig.json',
-  // },
-  plugins: ['@typescript-eslint'],
+  env: {
+    'jest/globals': true
+  },
+  plugins: [
+    '@typescript-eslint',
+    'jest'
+  ],
   parser: '@typescript-eslint/parser',
   rules: {
     'class-methods-use-this': 'off',

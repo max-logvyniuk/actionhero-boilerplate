@@ -16,20 +16,20 @@ describe('postAdd test', () => {
   test('can add new post', async () => {
     const createUserForTest = await specHelper.runAction('userAdd', {
       userName: 'Poll',
-      password: '1111',
+      password: '1111'
     });
     const response = await specHelper.runAction('postAdd', {
       userName: 'Poll',
       password: '1111',
       title: 'task',
-      content: 'Hello everyone!!!',
+      content: 'Hello everyone!!!'
     });
 
     expect(JSON.stringify(omit(response.post, ['createdAt', 'updatedAt']))).toEqual(
       JSON.stringify({
         content: 'Hello everyone!!!',
         title: 'task',
-        userName: 'Poll',
+        userName: 'Poll'
       }),
     );
   });
@@ -39,7 +39,7 @@ describe('postAdd test', () => {
       userName: 'HHHH',
       password: '1111',
       title: 'task',
-      content: 'Hello everyone!!!',
+      content: 'Hello everyone!!!'
     });
 
     expect(response.error).toBe(

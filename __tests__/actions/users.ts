@@ -1,4 +1,6 @@
-import { action, Process, api, specHelper } from 'actionhero';
+import {
+  action, Process, api, specHelper
+} from 'actionhero';
 import { getUser, deleteUser } from '../../src/modules/users';
 import * as usersModule from '../../src/modules/users';
 
@@ -17,7 +19,7 @@ describe('actionhero users Tests', () => {
   test('can create a user', async () => {
     const response = await specHelper.runAction('userAdd', {
       userName: 'evan',
-      password: 'password',
+      password: 'password'
     });
     expect(response.error).toBeUndefined();
   });
@@ -25,7 +27,7 @@ describe('actionhero users Tests', () => {
   test('cannot create a user with an existing name', async () => {
     const response = await specHelper.runAction('userAdd', {
       userName: 'evan',
-      password: 'password',
+      password: 'password'
     });
 
     expect(response.error).toMatch(/userName already exists/);
@@ -42,14 +44,14 @@ describe('actionhero users Tests', () => {
       lastName: 'Smith',
       email: 'olaf.smith@gmail.com',
       updatedAt: new Date(),
-      createdAt: new Date(),
+      createdAt: new Date()
     });
 
     const { newUser, error } = await specHelper.runAction('createUserMd', {
       firstName: 'John',
       lastName: 'Smith',
       email: 'olaf.smith@gmail.com',
-      password: 'root',
+      password: 'root'
     });
 
     expect(error).toBeFalsy();
@@ -59,7 +61,7 @@ describe('actionhero users Tests', () => {
       lastName: 'Smith',
       email: 'olaf.smith@gmail.com',
       updatedAt: expect.any(Date),
-      createdAt: expect.any(Date),
+      createdAt: expect.any(Date)
     });
   });
 
@@ -73,17 +75,17 @@ describe('actionhero users Tests', () => {
       lastName: 'Smith',
       email: 'john.smith@gmail.com',
       updatedAt: new Date(),
-      createdAt: new Date(),
+      createdAt: new Date()
     });
 
     const { error } = await specHelper.runAction('createUserMd', {
       firstName: 'John',
       lastName: 'Smith',
       email: 'john.smith@gmail.com',
-      password: 'root',
+      password: 'root'
     });
 
-    expect(error).toBe(`User with email john.smith@gmail.com already exist`);
+    expect(error).toBe('User with email john.smith@gmail.com already exist');
   });
 
   test('can get user from mariaDB', async () => {
@@ -97,7 +99,7 @@ describe('actionhero users Tests', () => {
         lastName: 'Smith',
         email: 'john.smith@gmail.com',
         updatedAt: new Date(),
-        createdAt: new Date(),
+        createdAt: new Date()
       },
       // @ts-ignore
       {
@@ -106,8 +108,8 @@ describe('actionhero users Tests', () => {
         lastName: 'Smith',
         email: 'olaf.smith@gmail.com',
         updatedAt: new Date(),
-        createdAt: new Date(),
-      },
+        createdAt: new Date()
+      }
     ]);
     const { users, error } = await specHelper.runAction('usersListMd', {});
 
